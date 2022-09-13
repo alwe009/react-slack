@@ -6,14 +6,19 @@ import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpIcon from "@mui/icons-material/Help";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
 
 export default function Header() {
+  const [user] = useAuthState(auth);
+
   return (
     <HeaderContainer>
       <HeaderLeft>
         <HeaderAvatar
-          src="https://assets.puzzlefactory.com/puzzle/254/191/original.jpg"
-          alt="pickachu image"
+          src={user?.photoURL}
+          alt={user?.displayName}
+          onClick={() => auth.signOut()}
         />
         <AccessTimeIcon />
       </HeaderLeft>
